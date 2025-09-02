@@ -1,0 +1,97 @@
+// Réplica JS: cuenta regresiva simple y año dinámico
+(function () {
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // Define un objetivo de 24h desde la carga
+  const target = Date.now() + 24 * 60 * 60 * 1000;
+  const els = {
+    d: document.getElementById("cd-d"),
+    h: document.getElementById("cd-h"),
+    m: document.getElementById("cd-m"),
+    s: document.getElementById("cd-s"),
+  };
+  function tick() {
+    const diff = target - Date.now();
+    if (diff <= 0) {
+      Object.values(els).forEach((e) => e && (e.textContent = "00"));
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor(diff / 3600000) % 24;
+    const m = Math.floor(diff / 60000) % 60;
+    const s = Math.floor(diff / 1000) % 60;
+    if (els.d) els.d.textContent = String(d).padStart(2, "0");
+    if (els.h) els.h.textContent = String(h).padStart(2, "0");
+    if (els.m) els.m.textContent = String(m).padStart(2, "0");
+    if (els.s) els.s.textContent = String(s).padStart(2, "0");
+    setTimeout(tick, 1000);
+  }
+  tick();
+})();
+
+// Slider móviles simple
+(function () {
+  const slider = document.querySelector(".mobiles__slider");
+  if (!slider) return;
+  const track = slider.querySelector(".mobiles__track");
+  const prev = slider.querySelector(".mob-btn.prev");
+  const next = slider.querySelector(".mob-btn.next");
+  function scrollByCard(dir) {
+    const phone = track.querySelector(".phone");
+    if (!phone) return;
+    const width = phone.getBoundingClientRect().width + 16;
+    track.scrollBy({ left: dir * width, behavior: "smooth" });
+  }
+  prev.addEventListener("click", () => scrollByCard(-1));
+  next.addEventListener("click", () => scrollByCard(1));
+})();
+
+// Lead form (simulado)
+(function () {
+  const form = document.getElementById("lead-form");
+  if (!form) return;
+  const email = document.getElementById("lead-email");
+  const msg = document.getElementById("lead-msg");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const val = (email.value || "").trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val)) {
+      msg.textContent = "Ingresa un correo válido";
+      msg.className = "form-msg err";
+      return;
+    }
+    // Simulación de envío - aquí integrarías tu API o servicio
+    msg.textContent = "¡Guía enviada! Revisa tu bandeja (o SPAM).";
+    msg.className = "form-msg ok";
+    form.reset();
+    window.dispatchEvent(
+      new CustomEvent("lead-submitted", { detail: { email: val } })
+    );
+  });
+})();
+
+// Sticky CTA (aparece tras scroll)
+(function () {
+  const bar = document.getElementById("sticky-cta");
+  if (!bar) return;
+  let shown = false;
+  function onScroll() {
+    if (window.scrollY > 1200 && !shown) {
+      bar.classList.add("show");
+      shown = true;
+    }
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+})();
+
+// Tracking ligero (console)
+(function () {
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("[data-cta]");
+    if (!btn) return;
+    const id = btn.getAttribute("data-cta");
+    console.log("[CTA]", id, "click");
+    window.dispatchEvent(new CustomEvent("cta-click", { detail: { id } }));
+  });
+})();
