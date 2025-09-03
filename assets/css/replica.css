@@ -1033,8 +1033,8 @@ ol.reset {
 /* Métricas rápidas */
 .metrics {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.75rem;
+  grid-template-columns: 1fr;
+  gap: 1rem;
   margin: 1.25rem 0 1.75rem;
   list-style: none;
   padding: 0;
@@ -1043,42 +1043,26 @@ ol.reset {
   background: #fff;
   border: 1px solid #eceffd;
   border-radius: 14px;
-  padding: 0.85rem 0.9rem;
+  padding: 1rem 1.1rem;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   font-weight: 500;
-  font-size: 0.85rem;
+  font-size: 1rem;
 }
 .metrics li strong {
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--c-accent);
   line-height: 1.1;
-}
-@media (min-width: 720px) {
-  .metrics {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  .metrics li {
-    font-size: 0.9rem;
-  }
-  .metrics li strong {
-    font-size: 1.35rem;
-  }
 }
 
 /* Metodología */
 .method__grid {
   display: grid;
-  gap: 2rem;
-}
-@media (min-width: 880px) {
-  .method__grid {
-    grid-template-columns: 1fr 1fr;
-    align-items: start;
-  }
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
 }
 .method-steps {
   counter-reset: ms;
@@ -1120,11 +1104,7 @@ ol.reset {
 .method__media {
   display: grid;
   gap: 1rem;
-}
-@media (min-width: 520px) {
-  .method__media {
-    grid-template-columns: 1fr 1fr;
-  }
+  grid-template-columns: 1fr;
 }
 .method-card {
   background: #fff;
@@ -1177,16 +1157,7 @@ ol.reset {
   display: grid;
   gap: 1rem;
   margin-top: 1.2rem;
-}
-@media (min-width: 680px) {
-  .testimonials--grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-@media (min-width: 1040px) {
-  .testimonials--grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  grid-template-columns: 1fr;
 }
 .testimonial__quote {
   font-weight: 600;
@@ -1227,45 +1198,23 @@ ol.reset {
   border: 1px solid #eceffd;
   border-radius: 18px;
   overflow: hidden;
-  font-size: 0.62rem;
+  font-size: 0.9rem;
   background: #fff;
   box-shadow: 0 6px 24px -12px rgba(0, 0, 0, 0.12);
-}
-@media (min-width: 640px) {
-  .compare-table {
-    font-size: 0.7rem;
-  }
-}
-@media (min-width: 900px) {
-  .compare-table {
-    font-size: 0.78rem;
-  }
+  display: block;
 }
 .compare-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: block;
   border-top: 1px solid #eceffd;
+  padding: 1rem;
 }
 .compare-row--head {
-  background: linear-gradient(90deg, #f1edff, #ffe5f6);
-  font-weight: 600;
+  display: none;
 }
 .compare-row span {
-  padding: 0.65rem 0.5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.compare-row--head span {
-  font-family: "Fredoka", sans-serif;
-  font-size: 0.65rem;
-  letter-spacing: 0.5px;
-}
-@media (min-width: 640px) {
-  .compare-row--head span {
-    font-size: 0.75rem;
-  }
+  display: block;
+  padding: 0.3rem 0;
+  text-align: left;
 }
 .compare-row:first-child {
   border-top: none;
@@ -1298,4 +1247,56 @@ ol.reset {
 }
 .btn {
   white-space: normal;
+}
+
+/* Forzar ancho tipo móvil también en pantallas grandes */
+@media (min-width: 600px) {
+  body,
+  .hero__inner,
+  .container,
+  .sticky-cta__inner,
+  .offer__grid,
+  .feature-blob__grid,
+  .lead-magnet__grid,
+  .guarantee__grid,
+  .final-cta__inner {
+    max-width: 480px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  .kits-enum .container {
+    display: block;
+  }
+  .enum-kit {
+    margin-bottom: 2rem;
+  }
+  .enum-kit__grid {
+    grid-template-columns: 1fr !important;
+  }
+  .preview-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .feature-blob__grid,
+  .lead-magnet__grid,
+  .guarantee__grid {
+    grid-template-columns: 1fr !important;
+  }
+  .offer__grid {
+    grid-template-columns: 1fr !important;
+  }
+  .testimonials {
+    grid-template-columns: 1fr !important;
+  }
+  .gallery-collage {
+    grid-template-columns: 1fr !important;
+  }
+  .hero {
+    min-height: unset;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
 }
