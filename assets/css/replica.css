@@ -1,13 +1,16 @@
-/* Replica CSS - enfoque mobile-first (reparado) */
+/* ---- BLOQUE INICIAL LIMPIO ---- */
 :root {
   --c-bg: #ffffff;
+  --c-bg-alt: #f5f7fb;
   --c-accent: #5a48f8;
   --c-accent-alt: #805dff;
-  --c-text: #1d2430;
-  --c-muted: #637082;
+  --c-accent-warm: #ff6d4f;
+  --c-text: #0f172a;
+  --c-text-strong: #0b1220;
+  --c-muted: #475569;
   --radius: 14px;
   --shadow: 0 6px 22px -8px rgba(0, 0, 0, 0.15);
-  font-size: 17px; /* Base aumentada */
+  font-size: 17px;
 }
 * {
   box-sizing: border-box;
@@ -18,7 +21,7 @@ body {
   font-family: "Fredoka", "Poppins", system-ui, sans-serif;
   background: var(--c-bg);
   color: var(--c-text);
-  line-height: 1.55;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
 }
 img {
@@ -52,8 +55,7 @@ ol.reset {
   background: #5a48f8;
   color: #fff;
 }
-/* (Steps list styles movidos más abajo) */
-
+/* Hero */
 .hero {
   position: relative;
   min-height: 68vh;
@@ -70,10 +72,6 @@ ol.reset {
   );
   overflow: hidden;
 }
-
-.hero__overlay {
-  display: none;
-}
 .hero::after {
   content: "";
   position: absolute;
@@ -85,17 +83,42 @@ ol.reset {
   );
   pointer-events: none;
 }
+.hero__overlay {
+  display: none;
+}
 .hero__inner {
   position: relative;
   z-index: 1;
 }
 .hero__title {
-  font-size: clamp(1.8rem, 6vw, 2.9rem);
-  color: #4d3751;
-  max-width: 28ch;
-  margin: 0 auto 1.4rem;
+  font-size: clamp(1.9rem, 6vw, 3rem);
+  color: var(--c-text-strong);
+  max-width: 26ch;
+  margin: 0 auto 1.1rem;
   font-weight: 700;
-  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.5px;
+}
+.hero__subtitle {
+  color: var(--c-muted);
+  font-size: 1rem;
+  max-width: 48ch;
+  margin: -0.4rem auto 1.1rem;
+  font-weight: 500;
+}
+.hero__video {
+  margin: 1.1rem auto 1.4rem;
+  max-width: 560px;
+}
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
 }
 .decor--hero .shape {
   position: absolute;
@@ -159,13 +182,7 @@ ol.reset {
     transform: translateY(-25px) rotate(8deg);
   }
 }
-.hero__subtitle {
-  color: #5a4c5f;
-  font-size: 1rem;
-  max-width: 46ch;
-  margin: -0.6rem auto 1.2rem;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.7);
-}
+/* ---- FIN BLOQUE INICIAL LIMPIO ---- */
 .hero-bullets {
   list-style: none;
   padding: 0;
@@ -223,6 +240,18 @@ ol.reset {
   }
 }
 
+.method-steps li {
+  position: relative;
+  padding-left: 2.55rem;
+  margin-bottom: 0.85rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  background: #fff;
+  border: 1px solid #e7ebf3;
+  border-radius: 14px;
+  padding: 0.85rem 0.9rem 0.85rem 2.9rem;
+  box-shadow: 0 3px 10px -5px rgba(0, 0, 0, 0.08);
+}
 .btn {
   --bg: var(--c-accent);
   --bg-h: var(--c-accent-alt);
@@ -314,6 +343,15 @@ ol.reset {
 }
 .gallery-item img {
   border-radius: 10px;
+}
+
+/* Videos de vista previa */
+.preview-video {
+  width: 100%;
+  display: block;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px -8px rgba(0, 0, 0, 0.35);
+  background: #000;
 }
 
 .cta-strip {
@@ -614,6 +652,7 @@ ol.reset {
 /* Steps lúdicos */
 .steps {
   background: linear-gradient(180deg, #fff, #fffaf2);
+  padding-bottom: 4.5rem;
 }
 .steps-list {
   counter-reset: step;
@@ -861,6 +900,20 @@ ol.reset {
 .final-cta {
   color: #fff;
   text-align: center;
+  background: linear-gradient(135deg, #5a48f8, #805dff);
+  border-radius: 28px;
+  box-shadow: 0 10px 32px -14px rgba(32, 40, 60, 0.35);
+  padding: 2.4rem 1.4rem 5rem;
+  margin-top: 2.5rem;
+}
+.final-cta__inner {
+  max-width: 560px;
+  margin: 0 auto;
+}
+.final-cta h2 {
+  margin: 0 0 1.4rem;
+  font-size: clamp(1.55rem, 4.6vw, 2.35rem);
+  line-height: 1.15;
 }
 .final-cta__inner {
   display: flex;
@@ -1029,34 +1082,7 @@ ol.reset {
   }
 }
 
-/* === Conversión: bloques añadidos (metrics, método, testimonios reforzados, comparativa) === */
-/* Métricas rápidas */
-.metrics {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
-  margin: 1.25rem 0 1.75rem;
-  list-style: none;
-  padding: 0;
-}
-.metrics li {
-  background: #fff;
-  border: 1px solid #eceffd;
-  border-radius: 14px;
-  padding: 1rem 1.1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  font-weight: 500;
-  font-size: 1rem;
-}
-.metrics li strong {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--c-accent);
-  line-height: 1.1;
-}
+/* === Conversión: bloques añadidos (método, testimonios reforzados, comparativa) === */
 
 /* Metodología */
 .method__grid {
