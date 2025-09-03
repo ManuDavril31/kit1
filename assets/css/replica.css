@@ -742,12 +742,15 @@ ol.reset {
   display: grid;
   gap: 1.1rem;
   align-items: start;
+  justify-items: center;
 }
 .enum-kit__grid img {
   width: 100%;
   max-width: 260px;
   border-radius: 18px;
   box-shadow: 0 12px 34px -14px rgba(0, 0, 0, 0.25);
+  display: block;
+  margin: 0 auto;
 }
 .enum-kit__list {
   list-style: none;
