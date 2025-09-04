@@ -96,40 +96,49 @@
   });
 })();
 
-// Autoplay diferido del video VSL tras 2s (sin forzar mute)
+// Autoplay mejorado sin forzar reflow ni scrollIntoView
+// Usa IntersectionObserver para reproducir cuando el video sea visible.
 (function () {
-  const TRY_DELAY = 2000; // ms
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      const video = document.querySelector(".hero__video video");
-      if (!video) return;
-      // No se fuerza mute: intentamos reproducción directa; si el navegador bloquea, se muestra botón.
-      // Si no tiene atributo playsinline lo añadimos
-      video.setAttribute("playsinline", "");
-      // Intentar reproducir sólo si está (o casi) en viewport
-      const rect = video.getBoundingClientRect();
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-      const inView = rect.top < vh * 0.9 && rect.bottom > 0;
-      if (!inView) {
-        // No forzamos scroll agresivo: scroll suave opcional
-        video.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-      const playAttempt = video.play();
-      if (playAttempt && typeof playAttempt.then === "function") {
-        playAttempt.catch(() => {
-          // Si el navegador bloquea autoplay, mostramos un indicador o botón.
-          let btn = document.createElement("button");
-          btn.textContent = "▶ Reproducir video";
-          btn.style.cssText =
-            "margin-top:.75rem;background:#ff6d4f;color:#fff;border:none;border-radius:30px;padding:.7rem 1.2rem;font-weight:600;cursor:pointer;font-size:.8rem;box-shadow:0 4px 14px -6px rgba(0,0,0,.25);";
-          btn.addEventListener("click", () => {
-            video.play();
-            btn.remove();
-          });
-          const fig = video.closest(".hero__video");
-          if (fig) fig.appendChild(btn);
+  const video = document.querySelector(".hero__video video");
+  if (!video) return;
+  video.setAttribute("playsinline", "");
+  // Intento diferido (por si el usuario ya está arriba del todo)
+  function attemptPlay() {
+    const p = video.play();
+    if (p && typeof p.then === "function") {
+      p.catch(() => showManualButton());
+    }
+  }
+  function showManualButton() {
+    if (video.dataset.manualBtn) return;
+    video.dataset.manualBtn = "1";
+    const btn = document.createElement("button");
+    btn.textContent = "▶ Reproducir video";
+    btn.style.cssText =
+      "margin-top:.75rem;background:#ff6d4f;color:#fff;border:none;border-radius:30px;padding:.7rem 1.2rem;font-weight:600;cursor:pointer;font-size:.8rem;box-shadow:0 4px 14px -6px rgba(0,0,0,.25);";
+    btn.addEventListener("click", () => {
+      video.play();
+      btn.remove();
+    });
+    const fig = video.closest(".hero__video");
+    if (fig) fig.appendChild(btn);
+  }
+  // Observer evita medir manualmente layout (reduce riesgo de forced reflow largo)
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            attemptPlay();
+            io.disconnect();
+          }
         });
-      }
-    }, TRY_DELAY);
-  });
+      },
+      { threshold: 0.4 }
+    );
+    io.observe(video);
+  } else {
+    // Fallback simple
+    setTimeout(attemptPlay, 1500);
+  }
 })();
