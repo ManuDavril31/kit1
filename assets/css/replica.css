@@ -384,6 +384,12 @@ ol.reset {
   font-size: 0.85rem;
   box-shadow: 0 4px 16px -6px rgba(0, 0, 0, 0.15);
 }
+.testimonial img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px -10px rgba(0, 0, 0, 0.12);
+  margin-bottom: 0.6rem;
+}
 .testimonial span {
   display: block;
   margin-top: 0.6rem;
@@ -1279,7 +1285,7 @@ ol.reset {
   display: grid;
   gap: 1rem;
   margin-top: 1.2rem;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(2, 1fr);
 }
 .testimonial__quote {
   font-weight: 600;
@@ -1312,6 +1318,7 @@ ol.reset {
   font-family: serif;
   opacity: 0.06;
 }
+/* Mantener siempre 2 columnas para testimonios */
 
 /* Comparativa */
 .compare-table {
@@ -1410,8 +1417,9 @@ ol.reset {
   .offer__grid {
     grid-template-columns: 1fr !important;
   }
-  .testimonials {
-    grid-template-columns: 1fr !important;
+  .testimonials,
+  .testimonials--grid {
+    grid-template-columns: repeat(2, 1fr) !important;
   }
   .gallery-collage {
     grid-template-columns: 1fr !important;
