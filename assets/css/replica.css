@@ -213,7 +213,7 @@ ol.reset {
   justify-content: center;
   margin-top: 1.6rem;
   padding: 0;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   letter-spacing: 0.6px;
 }
 .trust-row .trust-item {
@@ -1105,7 +1105,7 @@ ol.reset {
   padding: 0.75rem 1rem;
 }
 .sticky-cta__label {
-  font-size: 0.75rem;
+  font-size: 0.95rem;
   letter-spacing: 0.5px;
 }
 .sticky-cta.show {
@@ -1120,7 +1120,7 @@ ol.reset {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .trust-row {
-    font-size: 0.65rem;
+    font-size: 0.9rem;
   }
 }
 
