@@ -1285,7 +1285,7 @@ ol.reset {
   display: grid;
   gap: 1rem;
   margin-top: 1.2rem;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
 }
 .testimonial__quote {
   font-weight: 600;
@@ -1419,7 +1419,7 @@ ol.reset {
   }
   .testimonials,
   .testimonials--grid {
-    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-columns: 1fr !important;
   }
   .gallery-collage {
     grid-template-columns: 1fr !important;

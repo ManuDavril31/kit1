@@ -11,6 +11,55 @@
     m: document.getElementById("cd-m"),
     s: document.getElementById("cd-s"),
   };
+  // Centralización del enlace: se carga desde assets/config.json
+  // Fallback por si no carga el JSON
+  window.PURCHASE_URL =
+    window.PURCHASE_URL || "https://pay.hotmart.com/Y86835362H?checkoutMode=10";
+
+  function applyPurchaseUrl(url) {
+    window.PURCHASE_URL = url || window.PURCHASE_URL;
+    const selectors = [
+      "a[data-cta]",
+      "a.btn[href*='pay.hotmart.com']",
+      "a[href*='checkoutMode=10']",
+    ];
+    const anchors = document.querySelectorAll(selectors.join(","));
+    anchors.forEach((a) => {
+      a.setAttribute("href", window.PURCHASE_URL);
+      a.setAttribute("target", "_blank");
+      a.setAttribute("rel", "noopener");
+    });
+    // Actualiza también el JSON-LD si existe
+    const ld = document.querySelector('script[type="application/ld+json"]');
+    if (ld) {
+      try {
+        const data = JSON.parse(ld.textContent);
+        if (data && data.offers) {
+          data.offers.url = window.PURCHASE_URL;
+          ld.textContent = JSON.stringify(data);
+        }
+      } catch (_) {}
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    fetch("assets/config.json", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((cfg) => {
+        const url = cfg && (cfg.purchaseUrl || cfg.PURCHASE_URL);
+        applyPurchaseUrl(url);
+      })
+      .catch(() => applyPurchaseUrl())
+      .finally(() => {
+        // También engancha la barra sticky si existe (por si no tenía data-cta)
+        const sticky = document.querySelector("#sticky-cta a.btn");
+        if (sticky && !sticky.getAttribute("href")) {
+          sticky.setAttribute("href", window.PURCHASE_URL);
+          sticky.setAttribute("target", "_blank");
+          sticky.setAttribute("rel", "noopener");
+        }
+      });
+  });
   function tick() {
     const diff = target - Date.now();
     if (diff <= 0) {
