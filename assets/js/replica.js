@@ -226,14 +226,16 @@
   });
 })();
 
-// Autoplay mejorado sin forzar reflow ni scrollIntoView
-// Usa IntersectionObserver para reproducir cuando el video sea visible.
+// Autoplay diferido 2s para el video principal (hero)
 (function () {
   const video = document.querySelector(".hero__video video");
   if (!video) return;
   video.setAttribute("playsinline", "");
-  // Intento diferido (por si el usuario ya está arriba del todo)
+  // Reproducción con sonido (sin muted)
+  let attempted = false;
   function attemptPlay() {
+    if (attempted) return;
+    attempted = true;
     const p = video.play();
     if (p && typeof p.then === "function") {
       p.catch(() => showManualButton());
@@ -253,22 +255,17 @@
     const fig = video.closest(".hero__video");
     if (fig) fig.appendChild(btn);
   }
-  // Observer evita medir manualmente layout (reduce riesgo de forced reflow largo)
-  if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            attemptPlay();
-            io.disconnect();
-          }
-        });
-      },
-      { threshold: 0.4 }
-    );
-    io.observe(video);
+  // Autoplay 2s después de cargar el documento
+  if (
+    document.readyState === "complete" ||
+    document.readyState === "interactive"
+  ) {
+    setTimeout(attemptPlay, 2000);
   } else {
-    // Fallback simple
-    setTimeout(attemptPlay, 1500);
+    document.addEventListener(
+      "DOMContentLoaded",
+      () => setTimeout(attemptPlay, 2000),
+      { once: true }
+    );
   }
 })();

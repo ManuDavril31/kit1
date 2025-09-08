@@ -1,0 +1,23 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "optimize-images",
+			"type": "shell",
+			"command": "node -e \"(async()=>{const fs=require('fs');const path=require('path');let sharp;try{sharp=require('sharp')}catch(e){console.error('sharp-missing');process.exit(42)}const dir='assets/imgs';const exts=['.png','.jpg','.jpeg'];const sizes=[480,960];function walk(p){return fs.readdirSync(p).flatMap(n=>{const full=path.join(p,n);const st=fs.statSync(full);return st.isDirectory()?walk(full):[full]});}const files=walk(dir).filter(f=>exts.includes(path.extname(f).toLowerCase()));for(const f of files){const base=f.replace(/\\.(png|jpe?g)$/i,'');for(const w of sizes){const out=base+`-${w}.webp`;await sharp(f).resize({width:w,withoutEnlargement:true}).webp({quality:72}).toFile(out).catch(()=>{});} }console.log('done')} )()\"",
+			"args": [],
+			"problemMatcher": [],
+			"group": "build"
+		},
+		{
+			"label": "install-sharp",
+			"type": "shell",
+			"command": "npm init -y && npm i sharp --save-dev",
+			"args": [],
+			"problemMatcher": [
+				"$eslint-stylish"
+			],
+			"group": "build"
+		}
+	]
+}
