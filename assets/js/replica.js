@@ -42,12 +42,92 @@
     }
   }
 
+  // Formateo y aplicación de precios desde assets/config.json
+  function formatMoney({
+    symbol,
+    code,
+    amount,
+    spaceBetweenSymbol,
+    showCents,
+  }) {
+    const n = parseFloat(amount);
+    if (!isFinite(n)) return "";
+    const num = showCents ? n.toFixed(2) : String(Math.round(n));
+    const sym = symbol || "";
+    const symPart = sym ? (spaceBetweenSymbol ? sym + " " : sym) : "";
+    const codePart = code ? " " + code : "";
+    return `${symPart}${num}${codePart}`;
+  }
+
+  function applyPricing(pr) {
+    if (!pr || typeof pr !== "object") return;
+    const common = {
+      symbol: pr.currencySymbol,
+      code: pr.currencyCode,
+      spaceBetweenSymbol: !!pr.spaceBetweenSymbol,
+    };
+
+    // Oferta: precio normal y actual
+    const oldWrap = document.querySelector(".offer .offer__label");
+    const oldEl = document.querySelector(".offer .old-price");
+    const newEl = document.querySelector(".offer .new-price");
+    if (newEl) {
+      newEl.textContent = formatMoney({
+        ...common,
+        amount: pr.current,
+        showCents: !!pr.showCents,
+      });
+    }
+    if (oldEl) {
+      const oldNum = parseFloat(pr.old);
+      const curNum = parseFloat(pr.current);
+      if (!isFinite(oldNum) || !isFinite(curNum) || oldNum <= curNum) {
+        // Si no hay precio anterior válido o no es mayor, ocultamos la línea "PRECIO NORMAL"
+        if (oldWrap) oldWrap.style.display = "none";
+      } else {
+        oldEl.textContent = formatMoney({
+          ...common,
+          amount: pr.old,
+          showCents: !!pr.showCents,
+        });
+        if (oldWrap) oldWrap.style.display = "";
+      }
+    }
+
+    // Sticky CTA: versión compacta opcional (sin decimales si stickyCompact)
+    const stickyStrong = document.querySelector(
+      "#sticky-cta .sticky-cta__label strong"
+    );
+    if (stickyStrong) {
+      const stickyPrice = formatMoney({
+        ...common,
+        amount: pr.current,
+        showCents: pr.stickyCompact ? false : !!pr.showCents,
+      });
+      stickyStrong.textContent = stickyPrice;
+    }
+
+    // Actualiza JSON-LD: price y currency
+    const ld = document.querySelector('script[type="application/ld+json"]');
+    if (ld) {
+      try {
+        const data = JSON.parse(ld.textContent);
+        if (data && data.offers) {
+          if (pr.current) data.offers.price = String(pr.current);
+          if (pr.currencyCode) data.offers.priceCurrency = pr.currencyCode;
+          ld.textContent = JSON.stringify(data);
+        }
+      } catch (_) {}
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", () => {
     fetch("assets/config.json", { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))
       .then((cfg) => {
         const url = cfg && (cfg.purchaseUrl || cfg.PURCHASE_URL);
         applyPurchaseUrl(url);
+        if (cfg && cfg.pricing) applyPricing(cfg.pricing);
       })
       .catch(() => applyPurchaseUrl())
       .finally(() => {
