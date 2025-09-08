@@ -14,6 +14,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet" />
+  <!-- Preload de imagen clave (LCP probable) en WebP -->
+  <link rel="preload" as="image" href="assets/imgs/kit-2-4-960.webp" fetchpriority="high" />
     <link rel="stylesheet" href="assets/css/replica.css" />
   <!-- Favicon (evita 404) -->
   <link rel="icon" type="image/png" href="assets/imgs/kit-2-4.png" />
@@ -73,7 +75,7 @@
       <div class="hero__inner container">
         <h1 class="hero__title" data-test="hero-title">Desarrolla el lenguaje y aprendizaje de tu peque jugando</h1>
         <figure class="hero__video" aria-label="Video explicativo del kit">
-          <video preload="metadata" controls playsinline poster="assets/imgs/kit-2-4.png" style="max-width:100%;border-radius:18px;box-shadow:0 8px 28px -12px rgba(0,0,0,.35);border:3px solid #ffffff;">
+          <video preload="metadata" controls playsinline poster="assets/imgs/kit-2-4-960.webp" style="max-width:100%;border-radius:18px;box-shadow:0 8px 28px -12px rgba(0,0,0,.35);border:3px solid #ffffff;">
             <source src="vsl/Contenido del Súper Kit.mp4" type="video/mp4" />
             Tu navegador no soporta video HTML5.
           </video>
@@ -139,7 +141,10 @@
       <section class="section feature-blob" id="impacto">
         <div class="container feature-blob__grid">
           <div class="feature-blob__media">
-            <img src="assets/imgs/nino-realizando-actividades.png" alt="Niño realizando actividades del kit" loading="lazy" />
+            <picture>
+              <source type="image/webp" srcset="assets/imgs/nino-realizando-actividades-480.webp 480w, assets/imgs/nino-realizando-actividades-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" />
+              <img src="assets/imgs/nino-realizando-actividades.png" alt="Niño realizando actividades del kit" loading="lazy" decoding="async" fetchpriority="low" />
+            </picture>
           </div>
           <div class="feature-blob__body">
             <h2 class="feature-blob__title">Con nuestro kit de estimulación</h2>
@@ -177,7 +182,10 @@
           <article class="enum-kit">
             <h3 class="enum-kit__title">1. KIT PARA NIÑOS DE 2 A 4 AÑOS</h3>
             <div class="enum-kit__grid">
-              <img src="assets/imgs/kit-2-4.png" alt="Portada kit 2 a 4 años" loading="lazy" />
+              <picture>
+                <source type="image/webp" srcset="assets/imgs/kit-2-4-480.webp 480w, assets/imgs/kit-2-4-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" />
+                <img src="assets/imgs/kit-2-4.png" alt="Portada kit 2 a 4 años" loading="lazy" decoding="async" fetchpriority="low" />
+              </picture>
               <ul class="enum-kit__list">
                 <li>20 Audiolibros</li>
                 <li>30 Canciones</li>
@@ -198,7 +206,10 @@
           <article class="enum-kit">
             <h3 class="enum-kit__title">2. KIT PARA NIÑOS DE 5 A 7 AÑOS</h3>
             <div class="enum-kit__grid">
-              <img src="assets/imgs/kit-5-7.png" alt="Portada kit 5 a 7 años" loading="lazy" />
+              <picture>
+                <source type="image/webp" srcset="assets/imgs/kit-5-7-480.webp 480w, assets/imgs/kit-5-7-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" />
+                <img src="assets/imgs/kit-5-7.png" alt="Portada kit 5 a 7 años" loading="lazy" decoding="async" fetchpriority="low" />
+              </picture>
               <ul class="enum-kit__list">
                 <li>Colección Manía (12 Cuadernillos)</li>
                 <li>Estimulación de Lenguaje (12 Cuadernillos)</li>
@@ -216,7 +227,10 @@
           <article class="enum-kit">
             <h3 class="enum-kit__title">3. PACK NIÑOS CON AUTISMO</h3>
             <div class="enum-kit__grid">
-              <img src="assets/imgs/kit-autismo.png" alt="Portada pack apoyo TEA" loading="lazy" />
+              <picture>
+                <source type="image/webp" srcset="assets/imgs/kit-autismo-480.webp 480w, assets/imgs/kit-autismo-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" />
+                <img src="assets/imgs/kit-autismo.png" alt="Portada pack apoyo TEA" loading="lazy" decoding="async" fetchpriority="low" />
+              </picture>
               <ul class="enum-kit__list">
                 <li>Actividades para niños con TEA (3 Cuadernillos)</li>
                 <li>Tarjetas para trabajar la pragmática de lenguaje (3 Cuadernillos con tarjetas)</li>
@@ -232,7 +246,10 @@
           <article class="enum-kit">
             <h3 class="enum-kit__title">4. CUADERNILLOS DE ACTIVIDADES</h3>
             <div class="enum-kit__grid">
-              <img src="assets/imgs/kit-actividades.png" alt="Portada cuadernillos de actividades" loading="lazy" />
+              <picture>
+                <source type="image/webp" srcset="assets/imgs/kit-actividades-480.webp 480w, assets/imgs/kit-actividades-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" />
+                <img src="assets/imgs/kit-actividades.png" alt="Portada cuadernillos de actividades" loading="lazy" decoding="async" fetchpriority="low" />
+              </picture>
               <ul class="enum-kit__list cols-2">
                 <li>Cuadernillos para Presilábicos y Silábicos</li>
                 <li>Cuadernillo Recortable de las sílabas</li>
@@ -260,7 +277,10 @@
           <article class="enum-kit">
             <h3 class="enum-kit__title">5. CUADERNILLOS PARA REFORZAR</h3>
             <div class="enum-kit__grid">
-              <img src="assets/imgs/kit-reforzamiento.png" alt="Portada cuadernillos refuerzo" loading="lazy" />
+              <picture>
+                <source type="image/webp" srcset="assets/imgs/kit-reforzamiento-480.webp 480w, assets/imgs/kit-reforzamiento-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" />
+                <img src="assets/imgs/kit-reforzamiento.png" alt="Portada cuadernillos refuerzo" loading="lazy" decoding="async" fetchpriority="low" />
+              </picture>
               <ul class="enum-kit__list">
                 <li>200 Cuadernillos para pintar</li>
                 <li>Colección de 100 Cuentos</li>
@@ -277,7 +297,10 @@
             <h3 id="bonus-books-title" class="bonus-books__title">Colección adicional incluida sin costo</h3>
             <div class="bonus-books__grid" role="list" aria-label="Portadas de libros obsequiados">
               <figure class="bonus-books__item bonus-books__item--single" role="listitem">
-                <img src="assets/imgs/libros-bonus.png" alt="Colección de libros bonus incluidos" loading="lazy">
+                <picture>
+                  <source type="image/webp" srcset="assets/imgs/libros-bonus-480.webp 480w, assets/imgs/libros-bonus-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" />
+                  <img src="assets/imgs/libros-bonus.png" alt="Colección de libros bonus incluidos" loading="lazy" decoding="async" fetchpriority="low" />
+                </picture>
                 <figcaption>Colección completa incluida</figcaption>
               </figure>
             </div>
@@ -314,13 +337,22 @@
           <div class="gallery-collage">
             <!-- Usa las URLs originales solo si tienes derecho, aquí placeholders -->
             <figure class="gallery-item">
-              <img src="assets/imgs/kit-2-4.png" alt="Collage kit 2 a 4 años" loading="lazy" />
+              <picture>
+                <source type="image/webp" srcset="assets/imgs/kit-2-4-480.webp 480w, assets/imgs/kit-2-4-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" />
+                <img src="assets/imgs/kit-2-4.png" alt="Collage kit 2 a 4 años" loading="lazy" decoding="async" fetchpriority="low" />
+              </picture>
             </figure>
             <figure class="gallery-item">
-              <img src="assets/imgs/kit-5-7.png" alt="Collage kit 5 a 7 años" loading="lazy" />
+              <picture>
+                <source type="image/webp" srcset="assets/imgs/kit-5-7-480.webp 480w, assets/imgs/kit-5-7-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" />
+                <img src="assets/imgs/kit-5-7.png" alt="Collage kit 5 a 7 años" loading="lazy" decoding="async" fetchpriority="low" />
+              </picture>
             </figure>
             <figure class="gallery-item">
-              <img src="assets/imgs/kit-autismo.png" alt="Collage material apoyo TEA" loading="lazy" />
+              <picture>
+                <source type="image/webp" srcset="assets/imgs/kit-autismo-480.webp 480w, assets/imgs/kit-autismo-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" />
+                <img src="assets/imgs/kit-autismo.png" alt="Collage material apoyo TEA" loading="lazy" decoding="async" fetchpriority="low" />
+              </picture>
             </figure>
           </div>
         </div>
@@ -345,15 +377,15 @@
         <div class="container">
           <h2 class="section__title">Testimonios</h2>
           <div class="testimonials testimonials--grid">
-            <figure class="testimonial"><img src="assets/imgs/testimonios/testi1.jpg" alt="Testimonio 1" loading="lazy" /></figure>
-            <figure class="testimonial"><img src="assets/imgs/testimonios/testi2.jpg" alt="Testimonio 2" loading="lazy" /></figure>
-            <figure class="testimonial"><img src="assets/imgs/testimonios/testi3.jpg" alt="Testimonio 3" loading="lazy" /></figure>
-            <figure class="testimonial"><img src="assets/imgs/testimonios/testi4.jpg" alt="Testimonio 4" loading="lazy" /></figure>
-            <figure class="testimonial"><img src="assets/imgs/testimonios/testi5.jpg" alt="Testimonio 5" loading="lazy" /></figure>
-            <figure class="testimonial"><img src="assets/imgs/testimonios/testi6.jpg" alt="Testimonio 6" loading="lazy" /></figure>
-            <figure class="testimonial"><img src="assets/imgs/testimonios/testi7.jpg" alt="Testimonio 7" loading="lazy" /></figure>
-            <figure class="testimonial"><img src="assets/imgs/testimonios/testi8.jpg" alt="Testimonio 8" loading="lazy" /></figure>
-            <figure class="testimonial"><img src="assets/imgs/testimonios/testi9.jpg" alt="Testimonio 9" loading="lazy" /></figure>
+            <figure class="testimonial"><picture><source type="image/webp" srcset="assets/imgs/testimonios/testi1-480.webp 480w, assets/imgs/testimonios/testi1-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" /><img src="assets/imgs/testimonios/testi1.jpg" alt="Testimonio 1" loading="lazy" decoding="async" fetchpriority="low" /></picture></figure>
+            <figure class="testimonial"><picture><source type="image/webp" srcset="assets/imgs/testimonios/testi2-480.webp 480w, assets/imgs/testimonios/testi2-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" /><img src="assets/imgs/testimonios/testi2.jpg" alt="Testimonio 2" loading="lazy" decoding="async" fetchpriority="low" /></picture></figure>
+            <figure class="testimonial"><picture><source type="image/webp" srcset="assets/imgs/testimonios/testi3-480.webp 480w, assets/imgs/testimonios/testi3-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" /><img src="assets/imgs/testimonios/testi3.jpg" alt="Testimonio 3" loading="lazy" decoding="async" fetchpriority="low" /></picture></figure>
+            <figure class="testimonial"><picture><source type="image/webp" srcset="assets/imgs/testimonios/testi4-480.webp 480w, assets/imgs/testimonios/testi4-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" /><img src="assets/imgs/testimonios/testi4.jpg" alt="Testimonio 4" loading="lazy" decoding="async" fetchpriority="low" /></picture></figure>
+            <figure class="testimonial"><picture><source type="image/webp" srcset="assets/imgs/testimonios/testi5-480.webp 480w, assets/imgs/testimonios/testi5-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" /><img src="assets/imgs/testimonios/testi5.jpg" alt="Testimonio 5" loading="lazy" decoding="async" fetchpriority="low" /></picture></figure>
+            <figure class="testimonial"><picture><source type="image/webp" srcset="assets/imgs/testimonios/testi6-480.webp 480w, assets/imgs/testimonios/testi6-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" /><img src="assets/imgs/testimonios/testi6.jpg" alt="Testimonio 6" loading="lazy" decoding="async" fetchpriority="low" /></picture></figure>
+            <figure class="testimonial"><picture><source type="image/webp" srcset="assets/imgs/testimonios/testi7-480.webp 480w, assets/imgs/testimonios/testi7-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" /><img src="assets/imgs/testimonios/testi7.jpg" alt="Testimonio 7" loading="lazy" decoding="async" fetchpriority="low" /></picture></figure>
+            <figure class="testimonial"><picture><source type="image/webp" srcset="assets/imgs/testimonios/testi8-480.webp 480w, assets/imgs/testimonios/testi8-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" /><img src="assets/imgs/testimonios/testi8.jpg" alt="Testimonio 8" loading="lazy" decoding="async" fetchpriority="low" /></picture></figure>
+            <figure class="testimonial"><picture><source type="image/webp" srcset="assets/imgs/testimonios/testi9-480.webp 480w, assets/imgs/testimonios/testi9-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" /><img src="assets/imgs/testimonios/testi9.jpg" alt="Testimonio 9" loading="lazy" decoding="async" fetchpriority="low" /></picture></figure>
           </div>
         </div>
       </section>
@@ -405,11 +437,14 @@
           </div>
           <div class="offer__media">
             <a target="_blank" rel="noopener" data-cta="oferta">
-              <img
-                src="assets/imgs/banner-oferta.png"
-                alt="Banner oferta"
-                loading="lazy"
-              />
+              <picture>
+                <source type="image/webp" srcset="assets/imgs/banner-oferta-480.webp 480w, assets/imgs/banner-oferta-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" />
+                <img
+                  src="assets/imgs/banner-oferta.png"
+                  alt="Banner oferta"
+                  loading="lazy" decoding="async" fetchpriority="low"
+                />
+              </picture>
             </a>
           </div>
         </div>
@@ -419,11 +454,15 @@
       <section class="section guarantee" id="garantia">
         <div class="container guarantee__grid">
           <div class="guarantee__badge">
-            <img
-              src="https://via.placeholder.com/260x260?text=7+d%C3%ADas"
-              alt="Garantía de devolución 7 días"
-              loading="lazy"
-            />
+            <picture>
+              <source type="image/webp" srcset="assets/imgs/garantia-480.webp 480w, assets/imgs/garantia-960.webp 960w" sizes="(max-width: 600px) 480px, 960px" />
+              <img
+                src="assets/imgs/garantia.png"
+                alt="Garantía de devolución 7 días"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
           </div>
           <div class="guarantee__body">
             <h2 class="section__title">¡POLÍTICA Y GARANTÍA DE SATISFACCIÓN!</h2>
