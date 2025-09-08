@@ -101,9 +101,18 @@ ol.reset {
 .hero__subtitle {
   color: var(--c-muted);
   font-size: 1rem;
+  .sticky-cta__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
   max-width: 48ch;
   margin: -0.4rem auto 1.1rem;
   font-weight: 500;
+}
+.sticky-cta__note {
+  font-size: 0.65rem;
+  color: #d6dbe5;
 }
 .hero__video {
   margin: 1.1rem auto 1.4rem;
@@ -111,6 +120,10 @@ ol.reset {
 }
 .visually-hidden {
   position: absolute !important;
+  /* Banner clicable sin subrayado */
+  .offer__media a {
+    text-decoration: none;
+  }
   width: 1px !important;
   height: 1px !important;
   padding: 0 !important;
@@ -188,8 +201,8 @@ ol.reset {
   padding: 0;
   margin: 0 0 1.4rem;
   display: grid;
-  gap: 0.6rem;
-  font-size: 0.8rem;
+  gap: 0.65rem;
+  font-size: 0.85rem;
   color: #3a2c40;
   font-weight: 600;
 }
@@ -213,7 +226,7 @@ ol.reset {
   justify-content: center;
   margin-top: 1.6rem;
   padding: 0;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
   letter-spacing: 0.6px;
 }
 .trust-row .trust-item {
@@ -221,7 +234,7 @@ ol.reset {
   align-items: center;
   gap: 0.35rem;
   background: rgba(255, 255, 255, 0.92);
-  padding: 0.55rem 0.95rem;
+  padding: 0.65rem 1.05rem;
   border-radius: 32px;
   box-shadow: 0 4px 14px -6px rgba(0, 0, 0, 0.18);
   font-weight: 600;
@@ -275,6 +288,10 @@ ol.reset {
   background: var(--bg-h);
   text-decoration: none;
   transform: translateY(-3px);
+}
+.btn:focus-visible {
+  outline: 3px solid #ffd6c7;
+  outline-offset: 2px;
 }
 .btn:active {
   transform: translateY(0);
@@ -384,6 +401,12 @@ ol.reset {
   font-size: 0.85rem;
   box-shadow: 0 4px 16px -6px rgba(0, 0, 0, 0.15);
 }
+.testimonial img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px -10px rgba(0, 0, 0, 0.12);
+  margin-bottom: 0.6rem;
+}
 .testimonial span {
   display: block;
   margin-top: 0.6rem;
@@ -401,11 +424,14 @@ ol.reset {
   gap: 2.2rem;
   align-items: center;
 }
+.offer__media {
+  margin-top: 1rem; /* separación extra del bloque de badges */
+}
 .offer__label {
   font-weight: 600;
   letter-spacing: 0.5px;
   margin: 0 0 0.4rem;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
 }
 .old-price {
   text-decoration: line-through;
@@ -414,15 +440,15 @@ ol.reset {
 .offer__now {
   margin: 0.4rem 0 1.2rem;
   font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 1rem;
 }
 .value-stack {
   list-style: none;
   margin: 0 0 1.4rem;
   padding: 0;
   display: grid;
-  gap: 0.5rem;
-  font-size: 0.7rem;
+  gap: 0.55rem;
+  font-size: 0.75rem;
 }
 .value-stack li {
   background: #ffffff;
@@ -448,7 +474,7 @@ ol.reset {
   letter-spacing: 0.5px;
 }
 .new-price {
-  font-size: 1.6rem;
+  font-size: 1.8rem;
   background: linear-gradient(90deg, #ff6d4f, #ffa876);
   -webkit-background-clip: text;
   background-clip: text;
@@ -690,9 +716,17 @@ ol.reset {
   box-shadow: 0 4px 18px -8px rgba(0, 0, 0, 0.25);
 }
 
-/* Oferta y CTA paleta infantil */
+/* Oferta y CTA paleta infantil (fondo más destacado) */
 .offer {
-  background: linear-gradient(180deg, #ffffff, #fff6ec);
+  /* Degradado cálido con halo para destacar sobre el resto */
+  background: radial-gradient(
+      80% 50% at 50% 0%,
+      rgba(255, 214, 199, 0.55) 0%,
+      rgba(255, 214, 199, 0.18) 45%,
+      rgba(255, 214, 199, 0) 70%
+    ),
+    linear-gradient(180deg, #fff2e8 0%, #ffeaf6 100%);
+  border-top: 1px solid #ffd6c7;
 }
 .cta-strip {
   gap: 1.15rem;
@@ -1099,8 +1133,15 @@ ol.reset {
   padding: 0.75rem 1rem;
 }
 .sticky-cta__label {
-  font-size: 0.75rem;
+  font-size: 0.95rem;
   letter-spacing: 0.5px;
+}
+.sticky-cta__label strong {
+  font-weight: 800;
+}
+.sticky-cta .btn {
+  font-size: 0.8rem;
+  padding: 0.7rem 1.1rem;
 }
 .sticky-cta.show {
   bottom: 0;
@@ -1114,7 +1155,7 @@ ol.reset {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
   .trust-row {
-    font-size: 0.65rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -1312,6 +1353,7 @@ ol.reset {
   font-family: serif;
   opacity: 0.06;
 }
+/* Mantener siempre 2 columnas para testimonios */
 
 /* Comparativa */
 .compare-table {
@@ -1410,7 +1452,8 @@ ol.reset {
   .offer__grid {
     grid-template-columns: 1fr !important;
   }
-  .testimonials {
+  .testimonials,
+  .testimonials--grid {
     grid-template-columns: 1fr !important;
   }
   .gallery-collage {

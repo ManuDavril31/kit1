@@ -1,0 +1,12 @@
+{
+  "purchaseUrl": "https://go.hotmart.com/R98822661R?ap=c1e5",
+  "pricing": {
+    "currencySymbol": "$",
+    "currencyCode": "USD",
+    "old": "20.00",
+    "current": "15.00",
+    "spaceBetweenSymbol": true,
+    "showCents": true,
+    "stickyCompact": true
+  }
+}
