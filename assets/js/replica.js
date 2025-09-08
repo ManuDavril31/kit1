@@ -151,7 +151,8 @@
     const m = Math.floor(diff / 60000) % 60;
     const s = Math.floor(diff / 1000) % 60;
     if (els.d) els.d.textContent = String(d).padStart(2, "0");
-    if (els.h) els.h.textContent = String(h).padStart(2, "0");
+    // Solicitud: mantener HORAS en 00, sin mostrar valores como 23 al inicio
+    if (els.h) els.h.textContent = "00";
     if (els.m) els.m.textContent = String(m).padStart(2, "0");
     if (els.s) els.s.textContent = String(s).padStart(2, "0");
     setTimeout(tick, 1000);

@@ -424,6 +424,9 @@ ol.reset {
   gap: 2.2rem;
   align-items: center;
 }
+.offer__media {
+  margin-top: 1rem; /* separación extra del bloque de badges */
+}
 .offer__label {
   font-weight: 600;
   letter-spacing: 0.5px;
@@ -713,9 +716,17 @@ ol.reset {
   box-shadow: 0 4px 18px -8px rgba(0, 0, 0, 0.25);
 }
 
-/* Oferta y CTA paleta infantil */
+/* Oferta y CTA paleta infantil (fondo más destacado) */
 .offer {
-  background: linear-gradient(180deg, #ffffff, #fff6ec);
+  /* Degradado cálido con halo para destacar sobre el resto */
+  background: radial-gradient(
+      80% 50% at 50% 0%,
+      rgba(255, 214, 199, 0.55) 0%,
+      rgba(255, 214, 199, 0.18) 45%,
+      rgba(255, 214, 199, 0) 70%
+    ),
+    linear-gradient(180deg, #fff2e8 0%, #ffeaf6 100%);
+  border-top: 1px solid #ffd6c7;
 }
 .cta-strip {
   gap: 1.15rem;
