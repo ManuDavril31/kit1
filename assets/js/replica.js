@@ -226,46 +226,59 @@
   });
 })();
 
-// Autoplay diferido 2s para el video principal (hero)
+// Embed YouTube en hero con reproducción a los 2s
 (function () {
-  const video = document.querySelector(".hero__video video");
-  if (!video) return;
-  video.setAttribute("playsinline", "");
-  // Reproducción con sonido (sin muted)
-  let attempted = false;
-  function attemptPlay() {
-    if (attempted) return;
-    attempted = true;
-    const p = video.play();
-    if (p && typeof p.then === "function") {
-      p.catch(() => showManualButton());
-    }
+  const container = document.getElementById("yt-hero");
+  if (!container) return;
+  const vid = container.getAttribute("data-video-id");
+  let player;
+
+  function loadYT(cb) {
+    if (window.YT && window.YT.Player) return cb();
+    const tag = document.createElement("script");
+    tag.src = "https://www.youtube.com/iframe_api";
+    tag.async = true;
+    document.head.appendChild(tag);
+    const prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function () {
+      prev && prev();
+      cb();
+    };
   }
-  function showManualButton() {
-    if (video.dataset.manualBtn) return;
-    video.dataset.manualBtn = "1";
-    const btn = document.createElement("button");
-    btn.textContent = "▶ Reproducir video";
-    btn.style.cssText =
-      "margin-top:.75rem;background:#ff6d4f;color:#fff;border:none;border-radius:30px;padding:.7rem 1.2rem;font-weight:600;cursor:pointer;font-size:.8rem;box-shadow:0 4px 14px -6px rgba(0,0,0,.25);";
-    btn.addEventListener("click", () => {
-      video.play();
-      btn.remove();
+
+  function createPlayer() {
+    player = new YT.Player("yt-hero", {
+      width: "100%",
+      height: "100%",
+      videoId: vid,
+      playerVars: {
+        autoplay: 0,
+        controls: 1,
+        rel: 0,
+        modestbranding: 1,
+        playsinline: 1,
+        enablejsapi: 1,
+      },
+      events: {
+        onReady: () => {
+          setTimeout(() => {
+            try {
+              player.playVideo();
+            } catch (e) {}
+          }, 2000);
+        },
+      },
     });
-    const fig = video.closest(".hero__video");
-    if (fig) fig.appendChild(btn);
   }
-  // Autoplay 2s después de cargar el documento
+
   if (
     document.readyState === "complete" ||
     document.readyState === "interactive"
   ) {
-    setTimeout(attemptPlay, 2000);
+    loadYT(createPlayer);
   } else {
-    document.addEventListener(
-      "DOMContentLoaded",
-      () => setTimeout(attemptPlay, 2000),
-      { once: true }
-    );
+    document.addEventListener("DOMContentLoaded", () => loadYT(createPlayer), {
+      once: true,
+    });
   }
 })();
