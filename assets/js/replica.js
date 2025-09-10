@@ -1,5 +1,11 @@
 // Réplica JS: cuenta regresiva simple y año dinámico
 (function () {
+  // Detección simple de navegadores in‑app (Facebook, Instagram, TikTok, etc.)
+  const isInApp =
+    /FBAN|FBAV|Instagram|Line|Twitter|Telegram|WhatsApp|TikTok/i.test(
+      navigator.userAgent || ""
+    );
+
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
@@ -26,8 +32,14 @@
     const anchors = document.querySelectorAll(selectors.join(","));
     anchors.forEach((a) => {
       a.setAttribute("href", window.PURCHASE_URL);
-      a.setAttribute("target", "_blank");
-      a.setAttribute("rel", "noopener");
+      // En navegadores in‑app abrir en la misma vista para evitar prompts de "salir de la app".
+      if (isInApp) {
+        a.setAttribute("target", "_self");
+        a.removeAttribute("rel");
+      } else {
+        a.setAttribute("target", "_blank");
+        a.setAttribute("rel", "noopener");
+      }
     });
     // Actualiza también el JSON-LD si existe
     const ld = document.querySelector('script[type="application/ld+json"]');
@@ -135,8 +147,21 @@
         const sticky = document.querySelector("#sticky-cta a.btn");
         if (sticky && !sticky.getAttribute("href")) {
           sticky.setAttribute("href", window.PURCHASE_URL);
-          sticky.setAttribute("target", "_blank");
-          sticky.setAttribute("rel", "noopener");
+          if (isInApp) {
+            sticky.setAttribute("target", "_self");
+            sticky.removeAttribute("rel");
+          } else {
+            sticky.setAttribute("target", "_blank");
+            sticky.setAttribute("rel", "noopener");
+          }
+        }
+
+        // Ajuste de enlaces PDF en in‑app: abrir en la misma vista y sin atributo download para evitar descargas automáticas.
+        if (isInApp) {
+          document.querySelectorAll("a[href$='.pdf']").forEach((a) => {
+            a.setAttribute("target", "_self");
+            a.removeAttribute("download");
+          });
         }
       });
   });
