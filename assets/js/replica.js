@@ -9,8 +9,8 @@
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Define un objetivo de 24h desde la carga
-  const target = Date.now() + 24 * 60 * 60 * 1000;
+  // Define un objetivo de 10 minutos desde la carga
+  const target = Date.now() + 10 * 60 * 1000;
   const els = {
     d: document.getElementById("cd-d"),
     h: document.getElementById("cd-h"),
@@ -106,6 +106,47 @@
       }
     }
 
+    // Cálculo y despliegue de % descuento (si aplica)
+    const oldNum = parseFloat(pr.old);
+    const curNum = parseFloat(pr.current);
+    if (isFinite(oldNum) && isFinite(curNum) && oldNum > curNum) {
+      const pct = Math.round(((oldNum - curNum) / oldNum) * 100);
+      const badge = document.getElementById("discount-badge");
+      if (badge) {
+        badge.textContent = `-${pct}% HOY`;
+        badge.hidden = false;
+      }
+      const heroDiscount = document.getElementById("hero-discount");
+      if (heroDiscount) {
+        heroDiscount.textContent = `-${pct}%`;
+        heroDiscount.hidden = false;
+      }
+    }
+
+    // Snippet precio en hero
+    const heroPrice = document.getElementById("hero-price");
+    if (heroPrice) {
+      heroPrice.textContent = formatMoney({
+        ...common,
+        amount: pr.current,
+        showCents: !!pr.showCents,
+      });
+      heroPrice.hidden = false;
+    }
+
+    // Badge inline en sticky note
+    const stickyNote = document.querySelector(".sticky-cta__note");
+    if (
+      stickyNote &&
+      !stickyNote.querySelector(".badge-inline") &&
+      pr.current
+    ) {
+      const span = document.createElement("strong");
+      span.className = "badge-inline";
+      span.textContent = "OFERTA";
+      stickyNote.appendChild(span);
+    }
+
     // Sticky CTA: versión compacta opcional (sin decimales si stickyCompact)
     const stickyStrong = document.querySelector(
       "#sticky-cta .sticky-cta__label strong"
@@ -180,6 +221,12 @@
     if (els.h) els.h.textContent = "00";
     if (els.m) els.m.textContent = String(m).padStart(2, "0");
     if (els.s) els.s.textContent = String(s).padStart(2, "0");
+    // Estado de escasez visual cuando < 5min
+    const cdEl = document.querySelector(".countdown");
+    if (cdEl) {
+      if (diff < 5 * 60 * 1000) cdEl.classList.add("scarcity");
+      else cdEl.classList.remove("scarcity");
+    }
     setTimeout(tick, 1000);
   }
   tick();
