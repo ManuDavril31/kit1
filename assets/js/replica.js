@@ -9,8 +9,8 @@
   const yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // Define un objetivo de 24h desde la carga
-  const target = Date.now() + 24 * 60 * 60 * 1000;
+  // Define un objetivo de 10 minutos desde la carga
+  const target = Date.now() + 10 * 60 * 1000;
   const els = {
     d: document.getElementById("cd-d"),
     h: document.getElementById("cd-h"),
