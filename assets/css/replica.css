@@ -1472,6 +1472,112 @@ ol.reset {
   font-family: serif;
   opacity: 0.06;
 }
+/* Carrusel de testimonios */
+.testimonial-carousel {
+  position: relative;
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 0 2.4rem;
+}
+.tc__viewport {
+  overflow: hidden;
+  border-radius: 24px;
+  box-shadow: 0 14px 40px -18px rgba(32, 40, 60, 0.35);
+  background: #fff;
+}
+.tc__track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.65, 0.05, 0.36, 1);
+  will-change: transform;
+}
+.tc__slide {
+  min-width: 100%;
+  padding: 0.85rem 0.85rem 1.1rem;
+  background: linear-gradient(135deg, #ffffff, #f6f8ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tc__slide picture {
+  width: 100%;
+}
+.tc__slide img {
+  border-radius: 18px;
+  box-shadow: 0 10px 28px -14px rgba(0, 0, 0, 0.25);
+}
+.tc__btn {
+  position: absolute;
+  bottom: 0.4rem;
+  background: #5a48f8;
+  color: #fff;
+  border: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  cursor: pointer;
+  box-shadow: 0 8px 22px -10px rgba(0, 0, 0, 0.35);
+  transition: background 0.3s, transform 0.3s;
+}
+.tc__btn:hover {
+  background: #805dff;
+}
+.tc__btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.tc__btn--prev {
+  left: 0.4rem;
+}
+.tc__btn--next {
+  right: 0.4rem;
+}
+.tc__dots {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0.9rem;
+  display: flex;
+  gap: 0.5rem;
+}
+.tc__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: #d8dff0;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: 0 0 0 2px #ffffff;
+  transition: background 0.35s, transform 0.35s;
+}
+.tc__dot[aria-selected="true"],
+.tc__dot:hover {
+  background: linear-gradient(135deg, #ff6d4f, #ffa876);
+  transform: scale(1.15);
+}
+@media (min-width: 600px) {
+  .testimonial-carousel {
+    padding-bottom: 3rem;
+  }
+  .tc__btn {
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+  }
+  .tc__btn--prev {
+    left: -62px;
+  }
+  .tc__btn--next {
+    right: -62px;
+  }
+  .tc__dots {
+    bottom: -1.4rem;
+  }
+}
 /* Mantener siempre 2 columnas para testimonios */
 
 /* Comparativa */

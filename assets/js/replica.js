@@ -354,3 +354,88 @@
     });
   }
 })();
+
+// Carrusel de testimonios
+(function () {
+  const carousel = document.querySelector(".testimonial-carousel");
+  if (!carousel) return;
+  const track = carousel.querySelector(".tc__track");
+  const slides = Array.from(track.children);
+  const prevBtn = carousel.querySelector(".tc__btn--prev");
+  const nextBtn = carousel.querySelector(".tc__btn--next");
+  const dotsWrap = carousel.querySelector(".tc__dots");
+  let index = 0;
+  let isPointer = false; // ya no se usa autoplay
+
+  // Crear dots accesibles
+  slides.forEach((_, i) => {
+    const b = document.createElement("button");
+    b.className = "tc__dot";
+    b.setAttribute("role", "tab");
+    b.setAttribute("aria-label", "Ver testimonio " + (i + 1));
+    b.addEventListener("click", () => goTo(i, true));
+    dotsWrap.appendChild(b);
+  });
+  function update() {
+    track.style.transform = `translateX(-${index * 100}%)`;
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === slides.length - 1;
+    dotsWrap.querySelectorAll(".tc__dot").forEach((d, i) => {
+      if (i === index) {
+        d.setAttribute("aria-selected", "true");
+        d.setAttribute("tabindex", "0");
+      } else {
+        d.setAttribute("aria-selected", "false");
+        d.setAttribute("tabindex", "-1");
+      }
+    });
+  }
+  function goTo(i) {
+    index = Math.max(0, Math.min(slides.length - 1, i));
+    update();
+  }
+  prevBtn.addEventListener("click", () => goTo(index - 1));
+  nextBtn.addEventListener("click", () => goTo(index + 1));
+
+  // Pausa al interactuar
+  // Interacción pointer sin autoplay: sólo marcamos estado para swipe
+  track.addEventListener("pointerdown", () => {
+    isPointer = true;
+  });
+  window.addEventListener("pointerup", () => {
+    if (isPointer) isPointer = false;
+  });
+
+  // Swipe táctil
+  let startX = 0,
+    dx = 0;
+  track.addEventListener(
+    "touchstart",
+    (e) => {
+      startX = e.touches[0].clientX;
+      dx = 0;
+    },
+    { passive: true }
+  );
+  track.addEventListener(
+    "touchmove",
+    (e) => {
+      dx = e.touches[0].clientX - startX;
+    },
+    { passive: true }
+  );
+  track.addEventListener("touchend", () => {
+    if (Math.abs(dx) > 40) {
+      if (dx < 0) goTo(index + 1);
+      else goTo(index - 1);
+    }
+  });
+
+  // Teclado
+  carousel.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") goTo(index + 1);
+    else if (e.key === "ArrowLeft") goTo(index - 1);
+  });
+
+  update();
+})();
