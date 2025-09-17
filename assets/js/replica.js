@@ -133,6 +133,25 @@
       });
       heroPrice.hidden = false;
     }
+    // Inline en ribbon
+    const heroInline = document.getElementById("hero-price-inline");
+    if (heroInline) {
+      heroInline.textContent = formatMoney({
+        ...common,
+        amount: pr.current,
+        showCents: !!pr.showCents,
+      });
+    }
+    const heroDiscInline = document.getElementById("hero-discount-inline");
+    if (
+      heroDiscInline &&
+      isFinite(oldNum) &&
+      isFinite(curNum) &&
+      oldNum > curNum
+    ) {
+      const pct = Math.round(((oldNum - curNum) / oldNum) * 100);
+      heroDiscInline.textContent = `-${pct}%`;
+    }
 
     // Badge inline en sticky note
     const stickyNote = document.querySelector(".sticky-cta__note");
