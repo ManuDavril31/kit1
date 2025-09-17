@@ -844,6 +844,125 @@ ol.reset {
 .bonus {
   background: #fafbff;
 }
+/* Dropdown Kits (details) */
+.kits-dropdowns {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 760px;
+  margin: 0 auto;
+}
+.kit-dd {
+  background: #fff;
+  border: 1.5px solid #e2e6f6;
+  border-radius: 28px;
+  box-shadow: 0 10px 30px -16px rgba(32, 40, 60, 0.18);
+  padding: 0.35rem 0.65rem 0.85rem;
+  overflow: hidden;
+  transition: border-color 0.35s, box-shadow 0.35s;
+}
+.kit-dd[open] {
+  border-color: #ccbfff;
+  box-shadow: 0 14px 38px -18px rgba(90, 72, 248, 0.35);
+}
+.kit-dd summary {
+  list-style: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  font-weight: 600;
+  font-family: "Fredoka", sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  padding: 0.85rem 0.4rem;
+  border-radius: 24px;
+  position: relative;
+}
+.kit-dd summary::-webkit-details-marker {
+  display: none;
+}
+.kit-dd__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 15px;
+  background: linear-gradient(135deg, #5a48f8, #805dff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 6px 18px -10px rgba(90, 72, 248, 0.6);
+  flex-shrink: 0;
+}
+.kit-dd[open] summary .kit-dd__icon {
+  background: linear-gradient(135deg, #ff6d4f, #ffa876);
+  box-shadow: 0 6px 18px -10px rgba(255, 109, 79, 0.55);
+}
+.kit-dd__panel {
+  display: grid;
+  gap: 1rem;
+  padding: 0 0.4rem 0.4rem;
+  animation: ddFade 0.45s ease;
+}
+@keyframes ddFade {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.kit-dd__panel picture img {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  border-radius: 20px;
+  box-shadow: 0 12px 34px -14px rgba(32, 40, 60, 0.28);
+}
+.kit-dd__list {
+  list-style: none;
+  margin: 0.2rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.55rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.kit-dd__list li {
+  background: #f6f8ff;
+  border: 1px solid #e3e8fb;
+  padding: 0.5rem 0.6rem;
+  border-radius: 12px;
+  position: relative;
+  line-height: 1.25;
+}
+.kit-dd__list li:before {
+  content: "";
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5a48f8, #805dff);
+  box-shadow: 0 0 0 3px #ddd7ff;
+  position: absolute;
+  left: 0.45rem;
+  top: 0.6rem;
+}
+.kit-dd__list li {
+  padding-left: 1.2rem;
+}
+.kit-dd__list.cols-2 {
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+@media (min-width: 640px) {
+  .kit-dd__panel {
+    grid-template-columns: 260px 1fr;
+    align-items: start;
+  }
+}
 .bonus-row {
   display: flex;
   gap: 1rem;
